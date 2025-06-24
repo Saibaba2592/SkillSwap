@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Update Request Status | SkillSwap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .navbar {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .navbar-brand {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .main-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .form-title {
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 2rem;
+    }
+    
+    .status-form {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .status-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    @keyframes shimmer {
+      0%, 100% { background-position: 200% 0; }
+      50% { background-position: -200% 0; }
+    }
+    
+    .form-label {
+      color: #495057;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .form-label::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 2px;
+      margin-right: 0.5rem;
+    }
+    
+    .form-control, .form-select {
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+      transform: translateY(-2px);
+    }
+    
+    .form-control:hover, .form-select:hover {
+      border-color: #667eea;
+      transform: translateY(-1px);
+    }
+    
+    .btn-update {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 0.875rem 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-update::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-update:hover::before {
+      left: 100%;
+    }
+    
+    .btn-update:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-update:active {
+      transform: translateY(0);
+    }
+    
+    .btn-outline-primary {
+      border: 2px solid #667eea;
+      color: #667eea;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-primary:hover {
+      background: #667eea;
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .alert {
+      border-radius: 10px;
+      border: none;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .alert-success {
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+      color: #155724;
+      border-left: 4px solid #28a745;
+    }
+    
+    .alert-danger {
+      background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+      color: #721c24;
+      border-left: 4px solid #dc3545;
+    }
+    
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+      border-width: 0.3em;
+    }
+    
+    .spinner-border.text-info {
+      color: #667eea !important;
+    }
+    
+    .status-option {
+      position: relative;
+      padding: 0.5rem 1rem;
+    }
+    
+    .form-floating-label {
+      position: relative;
+    }
+    
+    .form-floating-label input,
+    .form-floating-label select {
+      background: transparent;
+    }
+    
+    .input-group {
+      position: relative;
+    }
+    
+    .input-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6c757d;
+      z-index: 5;
+      pointer-events: none;
+    }
+    
+    .form-section {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .form-section::after {
+      content: '';
+      position: absolute;
+      bottom: -0.75rem;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+    }
+    
+    .form-section:last-of-type::after {
+      display: none;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .main-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+      
+      .status-form {
+        padding: 2rem 1.5rem;
+      }
+      
+      .form-title {
+        font-size: 1.5rem;
+      }
+    }
+    
+    /* Loading state */
+    .loading .btn-update {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    
+    .loading .spinner-border {
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="dashboard.html">SkillSwap</a>
+    <div class="d-flex">
+      <a href="dashboard.html" class="btn btn-outline-primary">← Back to Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="main-container mx-auto" style="max-width: 600px;">
+    <h3 class="text-center form-title">Update Session Request Status</h3>
+
+    <form id="statusForm" class="status-form">
+      <div class="form-section">
+        <label for="senderUsername" class="form-label">Sender's Username</label>
+        <div class="input-group">
+          <input type="text" name="senderUsername" class="form-control" placeholder="Enter sender's username" required>
+          <span class="input-icon">👤</span>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <label for="status" class="form-label">Request Status</label>
+        <div class="input-group">
+          <select name="status" id="status" class="form-select" required>
+            <option value="" disabled selected>Choose status action</option>
+            <option value="ACCEPTED" class="status-option">✅ Accepted</option>
+            <option value="REJECTED" class="status-option">❌ Rejected</option>
+            <option value="COMPLETED" class="status-option">🎉 Completed</option>
+          </select>
+          <span class="input-icon">📋</span>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <label for="meetLink" class="form-label">Google Meet Link <span style="color: #6c757d; font-weight: 400;">(optional)</span></label>
+        <div class="input-group">
+          <input type="text" name="meetLink" class="form-control" id="meetLink" placeholder="https://meet.google.com/your-meeting-link">
+          <span class="input-icon">🔗</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-update w-100">
+        <span class="btn-text">Update Status</span>
+      </button>
+    </form>
+
+    <div id="statusMessage" class="alert mt-3 d-none text-center"></div>
+
+    <div class="text-center mt-3">
+      <div class="spinner-border text-info d-none" id="statusLoader" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const statusForm = document.getElementById('statusForm');
+  const statusMessage = document.getElementById('statusMessage');
+  const statusLoader = document.getElementById('statusLoader');
+
+  statusForm.onsubmit = async function (e) {
+    e.preventDefault();
+    statusMessage.classList.add('d-none');
+    statusLoader.classList.remove('d-none');
+
+    const form = new FormData(statusForm);
+    const senderUsername = form.get("senderUsername");
+    const status = form.get("status");
+    const meetLink = form.get("meetLink");
+
+    // Optional confirmation for risky statuses
+    if (status === 'REJECTED' || status === 'COMPLETED') {
+      const confirmMsg = status === 'REJECTED' ? 'Are you sure you want to reject this request?' :
+                         'Have you completed the session and want to mark it as COMPLETED?';
+      if (!confirm(confirmMsg)) {
+        statusLoader.classList.add('d-none');
+        return;
+      }
+    }
+
+    let url = `/api/request/respond?toUsername=${encodeURIComponent(senderUsername)}&status=${encodeURIComponent(status)}`;
+    if (meetLink && meetLink.trim() !== "") {
+      url += `&meetLink=${encodeURIComponent(meetLink.trim())}`;
+    }
+
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'include'
+      });
+
+      statusLoader.classList.add('d-none');
+
+      if (res.ok) {
+        statusMessage.textContent = '✅ Request status updated successfully!';
+        statusMessage.className = 'alert alert-success mt-3';
+        statusForm.reset();
+      } else {
+        const text = await res.text();
+        statusMessage.textContent = text || '❌ Failed to update status.';
+        statusMessage.className = 'alert alert-danger mt-3';
+      }
+    } catch (err) {
+      statusLoader.classList.add('d-none');
+      statusMessage.textContent = '⚠ An error occurred. Please try again.';
+      statusMessage.className = 'alert alert-danger mt-3';
+    }
+
+    statusMessage.classList.remove('d-none');
+  };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard | SkillSwap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    /* Light Mode */
+    body.light-mode {
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #1a1a1a;
+      color: #ffffff;
+    }
+
+    .dark-mode .navbar {
+      background-color: #2d2d2d !important;
+    }
+
+    .dark-mode .navbar-brand,
+    .dark-mode .nav-link {
+      color: #ffffff !important;
+    }
+
+    .dark-mode .card {
+      background-color: #2d2d2d;
+      border-color: #404040;
+      color: #ffffff;
+    }
+
+    .dark-mode .card-header {
+      background-color: #404040;
+      border-color: #555;
+      color: #ffffff;
+    }
+
+    .dark-mode .bg-light {
+      background-color: #2d2d2d !important;
+    }
+
+    .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
+      color: #ffffff;
+    }
+
+    .dark-mode p, .dark-mode span {
+      color: #ffffff;
+    }
+
+    .dark-mode .btn-outline-secondary {
+      border-color: #6c757d;
+      color: #ffffff;
+    }
+
+    .dark-mode .btn-outline-secondary:hover {
+      background-color: #6c757d;
+      color: #ffffff;
+    }
+
+    .dark-mode .form-control {
+      background-color: #404040;
+      border-color: #555;
+      color: #ffffff;
+    }
+
+    .dark-mode .form-control:focus {
+      background-color: #404040;
+      border-color: #80bdff;
+      color: #ffffff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .dark-mode .form-control::placeholder {
+      color: #adb5bd;
+    }
+
+    .dark-mode .text-muted {
+      color: #6c757d !important;
+    }
+
+    /* Enhanced card styling */
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .dark-mode .card {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .dark-mode .card:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Welcome section with gradient background */
+    .welcome-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem 0;
+      margin-bottom: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .dark-mode .welcome-section {
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    }
+
+    .welcome-section h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .welcome-section p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    /* Enhanced button styling */
+    .btn {
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #007bff, #0056b3);
+    }
+
+    .btn-info {
+      background: linear-gradient(45deg, #17a2b8, #138496);
+    }
+
+    .btn-success {
+      background: linear-gradient(45deg, #28a745, #1e7e34);
+    }
+
+    .btn-outline-primary {
+      border: 2px solid #007bff;
+      background: transparent;
+    }
+
+    .btn-outline-secondary {
+      border: 2px solid #6c757d;
+      background: transparent;
+    }
+
+    .btn-outline-info {
+      border: 2px solid #17a2b8;
+      background: transparent;
+    }
+
+    /* Profile card enhancements */
+    .profile-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.9));
+      backdrop-filter: blur(10px);
+    }
+
+    .dark-mode .profile-card {
+      background: linear-gradient(135deg, rgba(45, 45, 45, 0.9), rgba(64, 64, 64, 0.9));
+    }
+
+    /* User cards in grid */
+    .user-card {
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .user-card:hover {
+      transform: scale(1.02);
+    }
+
+    .user-card .card-body {
+      padding: 1.5rem;
+    }
+
+    .user-card .card-title {
+      color: #667eea;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .dark-mode .user-card .card-title {
+      color: #3498db;
+    }
+
+    /* Loading spinner enhancements */
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    /* Action buttons grid */
+    .action-buttons .btn {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Navbar enhancements */
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .dark-mode .navbar {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Container spacing */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .welcome-section {
+        padding: 2rem 1rem;
+      }
+      
+      .welcome-section h2 {
+        font-size: 2rem;
+      }
+      
+      .action-buttons .btn {
+        height: 50px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body class="light-mode">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">SkillSwap</a>
+      
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-outline-secondary btn-sm" id="themeToggle">🌞</button>
+        <button class="btn btn-danger btn-sm" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-container my-4">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h2>Welcome back, <span id="userName">User</span>!</h2>
+      <p>Ready to share your skills and learn something new today?</p>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="card profile-card mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">Your Profile</h5>
+      </div>
+      <div class="card-body" id="profile">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Username:</strong> <span id="username">-</span></p>
+            <p><strong>Email:</strong> <span id="email">-</span></p>
+            <p><strong>Location:</strong> <span id="location">-</span></p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Bio:</strong> <span id="bio">-</span></p>
+            <p><strong>Availability:</strong> <span id="availability">-</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="text-center">
+      <div class="spinner-border text-primary d-none" id="dashboardLoader" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4 action-buttons">
+      <div class="col-md-4 mb-2">
+        <a href="skills.html" class="btn btn-primary w-100">
+          <i class="me-2">🎯</i> Manage Skills
+        </a>
+      </div>
+      <div class="col-md-4 mb-2">
+        <a href="request.html" class="btn btn-info w-100">
+          <i class="me-2">📬</i> View Requests
+        </a>
+      </div>
+      <div class="col-md-4 mb-2">
+        <a href="editprofile.html" class="btn btn-success w-100">
+          <i class="me-2">⚙️</i> Edit Profile
+        </a>
+      </div>
+    </div>
+
+    <!-- Additional Navigation Links -->
+    <div class="row mb-4 action-buttons">
+      <div class="col-md-3 mb-2">
+        <a href="feedback.html" class="btn btn-outline-primary w-100">
+          <i class="me-2">💬</i> Feedback
+        </a>
+      </div>
+      <div class="col-md-3 mb-2">
+        <a href="updatestatus.html" class="btn btn-outline-secondary w-100">
+          <i class="me-2">📊</i> Update Status
+        </a>
+      </div>
+      <div class="col-md-3 mb-2">
+        <a href="support.html" class="btn btn-outline-info w-100">
+          <i class="me-2">🆘</i> Support
+        </a>
+      </div>
+    </div>
+
+    <!-- Other Users Section -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">
+          <i class="me-2">👥</i> Other SkillSwap Users
+        </h5>
+      </div>
+      <div class="card-body">
+        <div id="otherUsers" class="row g-3"></div>
+        <div class="text-center mt-3 d-none" id="usersLoader">
+          <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const userNameEl = document.getElementById('userName');
+    const usernameEl = document.getElementById('username');
+    const emailEl = document.getElementById('email');
+    const bioEl = document.getElementById('bio');
+    const availabilityEl = document.getElementById('availability');
+    const locationEl = document.getElementById('location');
+    const loader = document.getElementById('dashboardLoader');
+    const usersContainer = document.getElementById('otherUsers');
+    const usersLoader = document.getElementById('usersLoader');
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'light-mode';
+    
+    // Apply saved theme
+    document.body.classList.add(savedTheme);
+    themeToggle.textContent = savedTheme === 'dark-mode' ? '🌙' : '🌞';
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
+      const next = current === 'dark-mode' ? 'light-mode' : 'dark-mode';
+      document.body.classList.remove(current);
+      document.body.classList.add(next);
+      localStorage.setItem('theme', next);
+      themeToggle.textContent = next === 'dark-mode' ? '🌙' : '🌞';
+    });
+
+    // Load logged-in user
+    loader.classList.remove('d-none');
+
+    fetch('/api/user/me', {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => {
+        if (!response.ok) throw new Error('Unauthorized');
+        return response.json();
+      })
+      .then(user => {
+        loader.classList.add('d-none');
+        userNameEl.textContent = user.username || 'User';
+        usernameEl.textContent = user.username || '-';
+        emailEl.textContent = user.email || '-';
+        bioEl.textContent = user.bio || 'N/A';
+        availabilityEl.textContent = user.availability || 'N/A';
+        locationEl.textContent = user.location || 'N/A';
+
+        loadOtherUsers(user.username);
+      })
+      .catch(error => {
+        loader.classList.add('d-none');
+        alert('⚠ Failed to load user details. Please login again.');
+        window.location.href = 'login.html';
+      });
+
+    // Load other users
+    function loadOtherUsers(currentUsername) {
+      usersLoader.classList.remove('d-none');
+
+      fetch('/api/user/others', {
+        method: 'GET',
+        credentials: 'include'
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch users');
+          return res.json();
+        })
+        .then(users => {
+          usersLoader.classList.add('d-none');
+          const filteredUsers = users.filter(u => u.username !== currentUsername);
+
+          if (filteredUsers.length === 0) {
+            usersContainer.innerHTML = '<div class="col-12"><p class="text-muted text-center">No other users found.</p></div>';
+            return;
+          }
+
+          filteredUsers.forEach(user => {
+            const card = document.createElement('div');
+            card.className = 'col-md-6 col-lg-4';
+            card.innerHTML = `
+              <div class="card user-card h-100">
+                <div class="card-body">
+                  <h6 class="card-title">
+                    <i class="me-2">👤</i>${user.username}
+                  </h6>
+                  <p class="card-text small">
+                    <i class="me-2">📧</i><strong>Email:</strong> ${user.email || 'N/A'}
+                  </p>
+                  <p class="card-text small">
+                    <i class="me-2">📍</i><strong>Location:</strong> ${user.location || 'N/A'}
+                  </p>
+                  <p class="card-text small">
+                    <i class="me-2">💭</i><strong>Bio:</strong> ${user.bio || 'N/A'}
+                  </p>
+                  <p class="card-text small">
+                    <i class="me-2">⏰</i><strong>Availability:</strong> ${user.availability || 'N/A'}
+                  </p>
+                  
+                </div>
+              </div>
+            `;
+            usersContainer.appendChild(card);
+          });
+        })
+        .catch(err => {
+          usersLoader.classList.add('d-none');
+          usersContainer.innerHTML = '<div class="col-12"><p class="text-danger text-center">Failed to load users.</p></div>';
+        });
+    }
+
+    
+
+    // Logout
+    function logout() {
+      fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      })
+      .then(() => {
+        window.location.href = 'login.html';
+      })
+      .catch(() => {
+        alert('Logout failed. Please try again.');
+      });
+    }
+  </script>
+</body>
+</html>

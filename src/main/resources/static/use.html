@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How to Use SkillSwap</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+<style>
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.navbar {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-brand {
+  color: #6c5ce7 !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  color: #6c757d !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #6c5ce7 !important;
+}
+
+.page-title {
+  color: white;
+  font-weight: 700;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.section h4 {
+  color: #2d3436;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.section p {
+  color: #636e72;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.icon {
+  font-size: 2rem;
+  margin-right: 15px;
+  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-width: 50px;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(108, 92, 231, 0.4);
+  background: linear-gradient(135deg, #5f4fcf 0%, #9085e8 100%);
+}
+
+.cta-section {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cta-section h3 {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+}
+
+footer {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #6c757d !important;
+  margin-top: 4rem;
+}
+
+.step-number {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-right: 10px;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    min-width: 40px;
+  }
+  
+  .section h4 {
+    font-size: 1.2rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .step-number {
+    margin-bottom: 10px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light">
+<div class="container-fluid">
+<a class="navbar-brand" href="indexp.html">SkillSwap</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="support.html">Support</a></li>
+<li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- Page Content -->
+<div class="container mt-5">
+<h1 class="page-title">How to Use SkillSwap</h1>
+
+<div class="section">
+<h4>
+<span class="step-number">1</span>
+<span class="icon">🔐</span> 
+Register an Account
+</h4>
+<p>Create your free SkillSwap account by providing your username, email, and password. Once registered, you can log in and start using the platform to connect with other learners and teachers.</p>
+</div>
+
+<div class="section">
+<h4>
+<span class="step-number">2</span>
+<span class="icon">👤</span> 
+Complete Your Profile
+</h4>
+<p>Fill in your bio, location, and availability. This helps other users understand who you are and when you're available for a skill exchange session. A complete profile increases your chances of successful matches.</p>
+</div>
+
+<div class="section">
+<h4>
+<span class="step-number">3</span>
+<span class="icon">🎯</span> 
+Add Skills
+</h4>
+<p>Go to <strong>Manage Skills</strong> to add skills you want to <strong>learn</strong> or <strong>teach</strong>. This is how the platform matches you with others who have complementary skills and interests.</p>
+</div>
+
+<div class="section">
+<h4>
+<span class="step-number">4</span>
+<span class="icon">🔍</span> 
+Explore Users
+</h4>
+<p>On the dashboard, you'll see other users who match your interests. Browse their profiles to find suitable matches based on skills, location, and availability.</p>
+</div>
+
+
+
+<div class="section">
+<h4>
+<span class="step-number">6</span>
+<span class="icon">🤝</span> 
+Interact and Exchange
+</h4>
+<p>Once your request is accepted, you can communicate and schedule skill exchange sessions using the contact information shared in your profiles. Arrange meetings that work for both parties.</p>
+</div>
+
+<div class="section">
+<h4>
+<span class="step-number">7</span>
+<span class="icon">⭐</span> 
+Give Feedback
+</h4>
+<p>After a session, go to the <strong>Feedback</strong> page to rate and review the person you interacted with. This helps maintain trust in the community and helps other users make informed decisions.</p>
+</div>
+
+<div class="cta-section">
+<h3>Ready to Start Your Skill Exchange Journey?</h3>
+<p>Join thousands of learners and teachers who are already sharing knowledge and building skills together on SkillSwap.</p>
+<a href="register.html" class="btn btn-primary">Get Started Now</a>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center text-muted py-4">
+<div class="container">
+&copy; 2025 SkillSwap. All rights reserved. | Connecting learners and teachers worldwide.
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
